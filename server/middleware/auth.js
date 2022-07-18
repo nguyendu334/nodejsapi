@@ -24,7 +24,7 @@ const authMiddleware = {
             if (req.user.id === req.params.id || req.user.role == 'ADMIN') {
                 next();
             } else {
-                return res.status(403).json("You're not allowed to do that!");
+                return res.status(403).json("You're not allowed to do that!");  
             }
         });
     },

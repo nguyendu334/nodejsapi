@@ -56,10 +56,6 @@
  *     description: the list of products
  *    500:
  *     description: Internal Server Error
- *     content:
- *      application/json:
- *       schema:
- *         $ref: "#/components/schema/product"
  * 
  * /product/create:
  *  post:
@@ -76,7 +72,6 @@
  *       description: Created product successfully
  *      500:
  *       description: Internal Server Error
- * 
  */
 
 /**
@@ -96,7 +91,7 @@
  *      200:
  *        description: successful 
  *      404:
- *        description: not found Product
+ *        description: Product not found 
  *      500:
  *        description: Internal Server Error
  *   delete:
@@ -188,9 +183,9 @@
  *      description: id of the product want delete
  *    responses: 
  *      200:
- *        description: product deleted successfully
- *      403:
- *        description: product not found
+ *        description: Product deleted successfully
+ *      404:
+ *        description: Product not found
  *      500:
  *         description: Internal Server Error
  *   post:
@@ -205,8 +200,8 @@
  *    responses:
  *      200:
  *       description: Created review successfully
- *      403:
- *        description: product not found
+ *      404:
+ *        description: Product not found
  *      500:
  *       description: Internal Server Error
  */

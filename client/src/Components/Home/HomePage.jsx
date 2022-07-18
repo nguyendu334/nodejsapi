@@ -7,7 +7,7 @@ import { loginSuccess } from "../../redux/authSlice";
 
 const HomePage = () => {
   const user = useSelector((state) => state.auth.login?.currentUser);
-  const productList = useSelector((state) => state.products.products?.allProducts);
+  const productList = useSelector((state) => state.products.products?.allProducts);   
   const dispatch = useDispatch();
   let axiosJWT = createAxios(user, dispatch, loginSuccess);
    

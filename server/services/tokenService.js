@@ -8,7 +8,7 @@ const tokenService = {
         role: user.role,
       },
       process.env.SECRET_KEY,
-      { expiresIn: "30d" }
+      { expiresIn: "30m" }
     );
   },
 
@@ -19,7 +19,7 @@ const tokenService = {
         role: user.role,
       },
       process.env.SECRET_KEY,
-      { expiresIn: "365d" }
+      { expiresIn: "30d" }
     );
   },
 }

@@ -26,12 +26,10 @@
  *   responses:
  *    200:
  *     description: the list of users
+ *    404:
+ *     description: User not found
  *    500:
  *     description: Internal Server Error
- *     content:
- *      application/json:
- *       schema:
- *         $ref: "#/components/schema/product"
 */
 
 /**
@@ -77,51 +75,53 @@
  *  
 */
 
-
 /**
  * @swagger
- *  /{id}:
+ *  /user/{id}:
  *   delete:
  *    tags:
  *     - User
- *    summary: Delete user
- *    requestBody:
- *      require: true
- *      content:
- *       application/json:  
- *        schema:
- *          $ref: '#/components/schema/user'
- *    responses:
- *     200:
- *      description: Delete users successful 
- *     404:
- *      description: Users not found
- *     500:
- *      description: Internal Server Error 
+ *    summary: Delete a user
+ *    parameters:
+ *    - name: id
+ *      in: path
+ *      required: true
+ *      description: id of the user want delete
+ *    responses: 
+ *      200:
+ *        description: User deleted successfully
+ *      404:
+ *        description: User not found
+ *      500:
+ *       description: Internal Server Error
 */
 
 /**
  * @swagger
- *  /{id}:
- *   put:
+ *  /user/{id}:
+  *   put:
  *    tags:
  *     - User
- *    summary: Edit user
+ *    summary: Edited user
+ *    parameters:
+ *     - name: id
+ *       in: path
+ *       required: true
+ *       description: id of the product 
  *    requestBody:
- *      require: true
- *      content:
- *       application/json:  
+ *     required: true
+ *     content:
+ *       application/json:
  *        schema:
  *          $ref: '#/components/schema/user'
  *    responses:
- *     200:
- *      description: Edit users successful 
- *     404:
- *      description: Users not found
- *     500:
- *      description: Internal Server Error 
+ *      200:
+ *       description: edited user successfully
+ *      404:
+ *       description: user not found
+ *      500:
+ *       description: Internal Server Error
 */
-
 
 /**
  * @swagger
@@ -130,12 +130,6 @@
  *    tags:
  *     - User
  *    summary: Logout user
- *    requestBody:
- *      required: true
- *      content:
- *       application/json:
- *        schema:
- *          $ref: '#/components/schema/user'
  *    responses:
  *     200:
  *      description: Logged out successful

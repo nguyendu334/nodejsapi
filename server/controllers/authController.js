@@ -58,6 +58,7 @@ const authController = {
     }
   },
 
+  //REFRESH TOKEN
   requestRefreshToken: async (req, res) => {
     //Take refresh token from user
     const refreshToken = req.cookies.refreshToken;

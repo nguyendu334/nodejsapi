@@ -8,6 +8,6 @@ router.get("/", auth.verifyToken, userController.getAllUsers);
 // DELETE USER
 router.delete("/:id", auth.verifyTokenAndUserAuthorization, userController.deleteUser);
 // EDIT USER
-router.put("/:id", validator('register'), auth.verifyTokenAndUserAuthorization, userController.updateUser);
+router.put("/:id", validator('register'), auth.verifyTokenAndUserAuthorization, userController.editUser);
 
 module.exports = router;  

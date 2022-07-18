@@ -1,16 +1,11 @@
 const mongoose = require("mongoose");
-const ROLES = {
-  ADMIN:'ADMIN',
-  VIEWER:'VIEWER',
-}
+const ROLES = require("../constants/role"); 
 
 const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
       require: true,
-      min: 1,
-      max: 20,
       unique: true,
     },
     email: {
@@ -21,7 +16,6 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       require: true,
-      min: 6,
     },
     role: {
       type: String,
@@ -31,17 +25,5 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
-// userSchema.methods.comparePassword = async function (password) {
-//   return await bcrypt.compare(password, this.password);
-// };
-
-// userSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
-//     next();
-//   }
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-// });
 
 module.exports = mongoose.model("User", userSchema);

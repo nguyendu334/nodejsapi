@@ -2,11 +2,24 @@
  * @swagger
  * components:
  *  schema:
+ *   reviews:
+ *    type: object
+ *    properties:
+ *     avgRating:
+ *      type: integer
+ *      default: 0
+ *    comment:
+ *     type: string
+ *       
+ */
+
+/**
+ * @swagger
+ * components:
+ *  schema:
  *   product:
  *    type: object
  *    properties:
- *     id:
- *       type: integer
  *     name:
  *       type: string
  *     price:
@@ -17,79 +30,115 @@
  *      type: file
  *      data: buffer
  *      contentType: string
- *     rating:
- *      type: integer
- *     slug:
- *      type: sting
- *      slug: name
- *     avgRating:
- *      type: integer
- *      default: 0
  *     category:
  *      type: array
- *    example:
- *      id: 1
- *      name: Nodejs
- *      price: 100
- *      description: product for development
  *       
  */
+
 /**
  * @swagger
- *  /product/{slug}:
+ * tags:
+ * - name: Products
+ *   description: The product API
+ * - name: User
+ *   description: Login & register
+ */
+
+/**
+ * @swagger
+ *  /product:
+ *  get:
+ *   tags:
+ *    - Products
+ *   summary: The list of products
+ *   responses:
+ *    200:
+ *     description: the list of products
+ *    500:
+ *     description: Internal Server Error
+ *     content:
+ *      application/json:
+ *       schema:
+ *         $ref: "#/components/schema/product"
+ * 
+ * /product/create:
+ *  post:
+ *    tags:
+ *     - Products
+ *    summary: Create product
+ *    requestBody:
+ *     content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/components/schema/product'
+ *    responses:
+ *      200:
+ *       description: Created product successfully
+ *      500:
+ *       description: Internal Server Error
+ * 
+ */
+
+/**
+ * @swagger
+ *  /product/{id}:
  *   get:
  *    tags:
  *     - Products
  *    summary: Product detail
  *    parameters:
- *    - name: slug
+ *    - name: id
  *      in: path
  *      type: string
- *      description: slug Product detail 
+ *      description: id Product detail 
  *      repuired: true
  *    responses:
  *      200:
  *        description: successful 
  *      404:
  *        description: not found Product
- *   post:
- *    tags:
- *     - Products
- *    summary: Rating product
- *    parameters:
- *     - name: slug
- *       in: path
- *       description: slug Product detail
- *       required: true
- *    requestBody:
- *       required: true
- *       content:
- *        application/json:
- *         schema:
- *          $ref: '#/components/schema/product'
- *    responses:
- *      200:
- *       description: Rating product successfully
  *      500:
- *       description: Internal Server Error
+ *        description: Internal Server Error
  *   delete:
  *    tags:
  *     - Products
- *    summary: delete a product by slug
+ *    summary: Delete a product
  *    parameters:
- *    - name: slug
+ *    - name: id
  *      in: path
  *      required: true
- *      description: slug of the product want delete
+ *      description: id of the product want delete
  *    responses: 
  *      200:
  *        description: product deleted successfully
  *      404:
  *        description: product not found
- *   patch:
+ *      500:
+ *       description: Internal Server Error
+ * 
+ * /product/{id}/force:
+ *   delete:
  *    tags:
  *     - Products
- *    summary: edited product
+ *    summary: Delete a product
+ *    parameters:
+ *    - name: id
+ *      in: path
+ *      required: true
+ *      description: id of the product want delete
+ *    responses: 
+ *      200:
+ *        description: product deleted successfully
+ *      404:
+ *        description: product not found
+ *      500:
+ *        description: Internal Server Error
+ * 
+ * /product/{slug}:
+ *   put:
+ *    tags:
+ *     - Products
+ *    summary: Edited product
  *    parameters:
  *     - name: slug
  *       in: path
@@ -104,70 +153,61 @@
  *    responses:
  *      200:
  *       description: edited product successfully
+ *      404:
+ *        description: product not found
  *      500:
  *       description: Internal Server Error
- * /product/create:
- *  post:
+ * 
+ * /product/{id}/restore:
+ *   patch:
  *    tags:
  *     - Products
- *    summary: Create product
+ *    summary: Restore a product
+ *    parameters:
+ *    - name: id
+ *      in: path
+ *      required: true
+ *      description: id of the product want delete
+ *    responses: 
+ *      200:
+ *        description: restore successfully
+ *      404:
+ *        description: product not found
+ *      500:
+ *        description: Internal Server Error
+ * 
+ * /product/{id}/review:
+ *   get:
+ *    tags:
+ *     - Products
+ *    summary: Review a product
+ *    parameters:
+ *    - name: id
+ *      in: path
+ *      required: true
+ *      description: id of the product want delete
+ *    responses: 
+ *      200:
+ *        description: product deleted successfully
+ *      403:
+ *        description: product not found
+ *      500:
+ *         description: Internal Server Error
+ *   post:
+ *    tags:
+ *     - Products
+ *    summary: Create review
  *    requestBody:
  *     content:
  *      multipart/form-data: 
  *       schema:
  *         $ref: '#/components/schema/product'
  *    responses:
- *      201:
- *       description: Created product successfully
+ *      200:
+ *       description: Created review successfully
+ *      403:
+ *        description: product not found
  *      500:
  *       description: Internal Server Error
- * /product/filter:
- *   get:
- *    tags:
- *    - Products
- *    summary: Filter product by category or name
- *    parameters:
- *     - name: category
- *       in: query
- *       schema:
- *         type: array
- *         items:
- *          type: string
- *       description: filter products by category
- *     - name: name
- *       in: query
- *       description: filter products by name
- *    responses:
- *       200:
- *        description: filter products successfully
- *       404:
- *        description: products not found
  */
 
-//  requestBody:
-//  *     required: true
-//  *     content:
-//  *      application/json:
-//  *       schema:
-//  *         $ref: '#/components/schema/product'
-// - name: name
-// *        in : formData
-// *        description: name of the product
-// *        schema:
-// *          type: string
-// *      - name: price 
-// *        description: price of the product
-// *        in: formData
-// *        schema:
-// *          type: number
-// *      - name: description
-// *        description: description of the product
-// *        in: formData
-// *        schema:
-// *          type: string 
-// *      - name: image
-// *        description: image of the product
-// *        in: formData
-// *        required: true 
-// *        schema:
-// *          type: file

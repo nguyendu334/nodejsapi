@@ -5,9 +5,7 @@
 *   user:
 *    type: object
 *    properties:
-*     id:
-*      type: integer
-*     fullname:
+*     username:
 *      defaul: null
 *      type: string
 *     email:
@@ -15,28 +13,30 @@
 *      defaul: null
 *     password:
 *      type: string
-*     gender:
-*      type: string
-*     token:
-*      type: string
 *
 */
 
 /**
  * @swagger
- *  /user/login:
- *   get:
- *    tags:
- *     - User
- *    summary: redirect to login
- *    responses:
- *       200:
- *        description: successfull
- *       500:
- *         description: Internal Server Error
- *         content:
- *          application/json:
- *            type: string
+ *  /user:
+ *  get:
+ *   tags:
+ *    - User
+ *   summary: The list of users
+ *   responses:
+ *    200:
+ *     description: the list of users
+ *    500:
+ *     description: Internal Server Error
+ *     content:
+ *      application/json:
+ *       schema:
+ *         $ref: "#/components/schema/product"
+*/
+
+/**
+ * @swagger
+ *  /login:
  *   post:
  *    tags:
  *     - User
@@ -52,28 +52,17 @@
  *      description: Login successful 
  *     404:
  *      description: Login not found
- *  
+ *     500:
+ *      description: Internal Server Error
 */
 
 /**
  * @swagger
- *  /user/register:
- *   get:
- *    tags:
- *     - User
- *    summary: redirect to register
- *    responses:
- *       200:
- *        description: successfull
- *       500:
- *         description: Internal Server Error
- *         content:
- *          application/json:
- *            type: string
+ *  /register:
  *   post:
  *    tags:
  *     - User
- *    summary: register user
+ *    summary: Register user
  *    requestBody:
  *      required: true
  *      content:
@@ -85,5 +74,70 @@
  *      description: register successful 
  *     500:
  *      description: Internal Server Error
+ *  
+*/
+
+
+/**
+ * @swagger
+ *  /{id}:
+ *   delete:
+ *    tags:
+ *     - User
+ *    summary: Delete user
+ *    requestBody:
+ *      require: true
+ *      content:
+ *       application/json:  
+ *        schema:
+ *          $ref: '#/components/schema/user'
+ *    responses:
+ *     200:
+ *      description: Delete users successful 
+ *     404:
+ *      description: Users not found
+ *     500:
+ *      description: Internal Server Error 
+*/
+
+/**
+ * @swagger
+ *  /{id}:
+ *   put:
+ *    tags:
+ *     - User
+ *    summary: Edit user
+ *    requestBody:
+ *      require: true
+ *      content:
+ *       application/json:  
+ *        schema:
+ *          $ref: '#/components/schema/user'
+ *    responses:
+ *     200:
+ *      description: Edit users successful 
+ *     404:
+ *      description: Users not found
+ *     500:
+ *      description: Internal Server Error 
+*/
+
+
+/**
+ * @swagger
+ *  /logout:    
+ *   post:
+ *    tags:
+ *     - User
+ *    summary: Logout user
+ *    requestBody:
+ *      required: true
+ *      content:
+ *       application/json:
+ *        schema:
+ *          $ref: '#/components/schema/user'
+ *    responses:
+ *     200:
+ *      description: Logged out successful
  *  
 */

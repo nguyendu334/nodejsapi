@@ -21,7 +21,7 @@ const productService = {
     },
 
     editProduct: (slug, data) => {
-        return Product.findOneAndUpdate(slug, data);
+        return Product.updateOne(slug, data);
     },
 
     destroyProduct: (id) => {

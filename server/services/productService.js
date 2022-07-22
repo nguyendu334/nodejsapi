@@ -10,6 +10,10 @@ const productService = {
             name: req.name,
             price: req.price,
             description: req.description,
+            // image: {
+            //     data: path.join('img/' + req.file.filename),
+            //     contentType: 'image/png',
+            // },
             category: req.category,
         })
         const product = newProduct.save();

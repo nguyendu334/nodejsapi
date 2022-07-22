@@ -29,7 +29,6 @@ const userController = {
       const user = await userService.updateUser({ _id: req.params.id }, req.body);
       if (!user)
         return res.status(404).json("User not found");
-      await user.save();
       return res.status(200).json({ message: "USER UPDATED!", user });
     } catch (err) {
       return res.status(500).json(err);

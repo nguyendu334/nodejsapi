@@ -5,8 +5,8 @@ const validator = require('../middleware/validate');
 const router = require("express").Router(); 
 
 //GET ALL PRODUCTS
-router.get("/", productController.getAllProducts); 
-// CREATE PRODUCTS
+router.get("/", productController.getAllProducts);       
+// CREATE PRODUCTS     
 router.post("/create", validator('product'),  auth.verifyToken, productController.createProduct);
 // EDIT PRODUCTS
 router.put("/:slug", validator('product'), auth.verifyTokenAndUserAuthorization, productController.editProduct);

@@ -11,9 +11,9 @@ const authController = {
     try {
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(req.body.password, salt);
-      const newUser = await new User({   
+      const newUser = await new User({
         username: req.body.username,
-        email: req.body.email,    
+        email: req.body.email,
         password: hashed,
       });
       const user = await newUser.save();
@@ -30,12 +30,12 @@ const authController = {
       if (!user) {
         return res.status(404).json("Incorrect email");
       }
-      const validPassword = await bcrypt.compare( 
+      const validPassword = await bcrypt.compare(
         req.body.password,
         user.password
       );
       if (!validPassword) {
-        res.status(404).json("Incorrect password"); 
+        res.status(404).json("Incorrect password");
       }
       if (user && validPassword) {
         //Generate access token
@@ -46,15 +46,15 @@ const authController = {
         //STORE REFRESH TOKEN IN COOKIE
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
-          secure:false,
+          secure: false,
           path: "/",
           sameSite: "strict",
         });
-        const { password, ...others} = user._doc;
-        res.status(200).json({ ...others, accessToken});
+        const { password, ...others } = user._doc;
+        res.status(200).json({ ...others, accessToken });
       }
     } catch (err) {
-      res.status(500).json(err); 
+      res.status(500).json(err);
     }
   },
 
@@ -78,7 +78,7 @@ const authController = {
       refreshTokens.push(newRefreshToken);
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        secure:false,
+        secure: false,
         path: "/",
         sameSite: "strict",
       });
@@ -96,6 +96,6 @@ const authController = {
     res.clearCookie("refreshToken");
     res.status(200).json("Logged out successfully!");
   },
-};      
-   
+};
+
 module.exports = authController;   

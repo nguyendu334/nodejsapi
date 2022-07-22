@@ -14,10 +14,11 @@ module.exports = function(validator) {
         } catch (err) {
             //* Pass err to next
             //! If validation error occurs call next with HTTP 422. Otherwise HTTP 500
-            if(err.isJoi) 
+            if(err.isJoi)
                 return next(createHttpError(422, {message: err.message}))
             next(createHttpError(500))
         }
     }
+    
 }
 

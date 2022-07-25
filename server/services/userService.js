@@ -12,8 +12,8 @@ const userService = {
 
   updateUser: async (id, data) => {
     const salt = await bcrypt.genSalt(10);
-    const hashed = await bcrypt.hash(data.password, salt);   
-    data = {...data, password: hashed};
+    const hashed = await bcrypt.hash(data.password, salt);
+    data = { ...data, password: hashed };
     return User.findOneAndUpdate(id, data);
   },
 }

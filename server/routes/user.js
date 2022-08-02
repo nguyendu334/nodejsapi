@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 
 const router = require("express").Router(); 
 // GET ALL USERS
-router.get("/", auth.verifyToken, userController.getAllUsers); 
+router.get("/", userController.getAllUsers); 
 // DELETE USER
 router.delete("/:id", auth.verifyTokenAndUserAuthorization, userController.deleteUser);
 // EDIT USER

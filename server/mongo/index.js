@@ -16,7 +16,7 @@ const randomComment = () => {
     const random = Math.floor(Math.random() * 100);
     const getLenght =
         random < 20 ? commentLenght.short : random == 20 ? commentLenght.medium : commentLenght.long;
-    return gennerateComment(getLenght);
+    return gennerateComment(random);
 }
 
 

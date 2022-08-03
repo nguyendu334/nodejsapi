@@ -85,3 +85,33 @@ db.getCollection("products").aggregate(
     }
 );
 // nhiều review nhất, comment trên 20 ký tự
+db = db.getSiblingDB("test");
+db.getCollection("products").aggregate([
+    { "$unwind": "$reviews" },
+    {
+        "$project": {
+            "length": { $strLenCP: "$reviews.comment" }
+        }
+    },
+    {
+        "$match": {
+            "length": { $gt: 20 }
+        }
+    },
+    {
+        "$group": {
+            "_id": "$_id",
+            "totalReview": { $count: {} },
+
+        }
+    },
+    {
+        "$sort": {
+            "totalReview": -1.0,
+        },
+    },
+],
+    {
+        "allowDiskUse": false
+    }
+);
